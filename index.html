@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>English Placement Test — Somerset Language Centre</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -27,7 +27,6 @@
     flex-direction: column;
   }
 
-  /* Header */
   header {
     background: #fff;
     border-bottom: 1px solid #e8e8e8;
@@ -36,7 +35,6 @@
     align-items: center;
   }
 
-  /* Progress bar */
   .progress-wrap {
     background: #e8e8e8;
     height: 4px;
@@ -49,7 +47,6 @@
     transition: width 0.4s ease;
   }
 
-  /* Main */
   main {
     flex: 1;
     display: flex;
@@ -63,24 +60,23 @@
     border-radius: 12px;
     box-shadow: 0 2px 16px rgba(0,0,0,0.08);
     width: 100%;
-    max-width: 620px;
+    max-width: 640px;
     overflow: hidden;
   }
 
-  /* Screens */
   .screen { display: none; }
   .screen.active { display: block; }
 
-  /* Intro screen */
+  /* ── Intro screen ── */
   .intro-body {
     padding: 36px 32px 40px;
   }
   .intro-body h1 {
     font-family: 'Barlow', Arial, sans-serif;
-    font-weight: 600;
-    font-size: 1.5rem;
+    font-weight: 700;
+    font-size: 1.6rem;
     color: var(--dark);
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .intro-body p {
     color: #444;
@@ -91,10 +87,10 @@
   .intro-body ul {
     margin: 4px 0 24px 20px;
     color: #444;
-    line-height: 1.8;
+    line-height: 1.9;
     font-size: 0.97rem;
   }
-  .btn-start {
+  .btn-primary {
     display: block;
     width: 100%;
     background: var(--green);
@@ -109,9 +105,102 @@
     letter-spacing: 0.3px;
     transition: background 0.2s;
   }
-  .btn-start:hover { background: #5a9926; }
+  .btn-primary:hover { background: #5a9926; }
+  .btn-primary:disabled { background: #aaa; cursor: default; }
 
-  /* Question screen */
+  /* ── Pre-screen ── */
+  .prescreen-body {
+    padding: 32px 32px 36px;
+  }
+  .prescreen-body h2 {
+    font-family: 'Barlow', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+  .prescreen-body .subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .can-do-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .can-do-item {
+    background: var(--panel);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: border-color 0.2s;
+  }
+  .can-do-item.answered-yes {
+    border-color: var(--green);
+    background: #eaf6d6;
+  }
+  .can-do-item.answered-no {
+    border-color: #ccc;
+    background: #f9f9f9;
+  }
+  .can-do-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--dark);
+    flex: 1;
+  }
+  .can-do-level {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--green);
+    background: #d8f0b5;
+    border-radius: 20px;
+    padding: 2px 8px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+  .can-do-buttons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .yn-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 2px solid var(--border);
+    background: #fff;
+    font-family: 'Barlow', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    min-width: 52px;
+    min-height: 40px;
+    transition: all 0.15s;
+    letter-spacing: 0.5px;
+  }
+  .yn-btn.yes-btn:hover { border-color: var(--green); color: var(--green); }
+  .yn-btn.no-btn:hover  { border-color: #999; color: #555; }
+  .yn-btn.selected-yes {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+  .yn-btn.selected-no {
+    background: #888;
+    border-color: #888;
+    color: #fff;
+  }
+
+  /* ── Question screen ── */
   .q-header {
     padding: 20px 28px 16px;
     border-bottom: 1px solid #f0f0f0;
@@ -128,7 +217,7 @@
   }
   .q-level-badge {
     font-size: 0.78rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--green);
     background: var(--panel);
     border-radius: 20px;
@@ -138,13 +227,32 @@
   .q-body {
     padding: 28px 28px 12px;
   }
+  .passage-box {
+    background: var(--panel);
+    border-left: 4px solid var(--green);
+    border-radius: 6px;
+    padding: 16px 18px;
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: #333;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+  .q-type-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
   .q-text {
-    font-size: 1.1rem;
+    font-size: 1.08rem;
     font-weight: 500;
-    line-height: 1.55;
+    line-height: 1.6;
     color: var(--dark);
-    margin-bottom: 24px;
-    min-height: 52px;
+    margin-bottom: 22px;
+    min-height: 48px;
   }
   .options-list {
     list-style: none;
@@ -195,47 +303,34 @@
     border-color: var(--green);
     color: #2e5c0a;
   }
-  .option-btn.correct .opt-letter {
-    background: var(--green);
-    color: #fff;
-  }
+  .option-btn.correct .opt-letter { background: var(--green); color: #fff; }
   .option-btn.wrong {
     background: #fde8e8;
     border-color: var(--red);
     color: #8b1a1a;
   }
-  .option-btn.wrong .opt-letter {
-    background: var(--red);
-    color: #fff;
-  }
+  .option-btn.wrong .opt-letter { background: var(--red); color: #fff; }
   .option-btn.reveal-correct {
     border-color: var(--green);
     background: #eaf6d6;
     color: #2e5c0a;
   }
-  .option-btn.reveal-correct .opt-letter {
-    background: var(--green);
-    color: #fff;
-  }
+  .option-btn.reveal-correct .opt-letter { background: var(--green); color: #fff; }
   .option-btn:disabled { cursor: default; }
 
   /* Fade transition */
-  .q-body, .options-list {
-    animation: fadeIn 0.3s ease;
-  }
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .fade-out {
-    animation: fadeOut 0.25s ease forwards;
-  }
+  .q-body { animation: fadeIn 0.3s ease; }
+  .fade-out { animation: fadeOut 0.25s ease forwards; }
   @keyframes fadeOut {
     from { opacity: 1; transform: translateY(0); }
     to   { opacity: 0; transform: translateY(-6px); }
   }
 
-  /* Result screen */
+  /* ── Result screen ── */
   .result-body {
     padding: 36px 32px 40px;
     text-align: center;
@@ -257,8 +352,14 @@
     font-size: 1.6rem;
     border-radius: 50px;
     padding: 14px 40px;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
     letter-spacing: 0.5px;
+  }
+  .level-cefr-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 20px;
   }
   .level-description {
     font-size: 1rem;
@@ -267,21 +368,68 @@
     background: var(--panel);
     border-radius: 8px;
     padding: 18px 22px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     text-align: left;
   }
   .score-line {
     font-size: 0.92rem;
     color: var(--text-muted);
-    margin-bottom: 28px;
+    margin-bottom: 20px;
   }
   .score-line strong { color: var(--dark); }
+  .borderline-panel {
+    background: #fff8e1;
+    border: 2px solid #f0c040;
+    border-radius: 8px;
+    padding: 16px 20px;
+    text-align: left;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #5a4500;
+    margin-bottom: 20px;
+    display: none;
+  }
+  .borderline-panel strong { color: #3a2d00; }
+  .writing-panel {
+    border: 2px solid var(--green);
+    border-radius: 8px;
+    padding: 20px 22px;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  .writing-panel h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+  .writing-panel p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #444;
+    margin-bottom: 8px;
+  }
+  .writing-prompt {
+    background: var(--panel);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 0.97rem;
+    color: var(--dark);
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+  .writing-email {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+  .writing-email a { color: var(--green); font-weight: 600; text-decoration: none; }
+  .writing-email a:hover { text-decoration: underline; }
   .cta-footer {
     font-size: 0.92rem;
     color: #555;
     line-height: 1.6;
     border-top: 1px solid #eee;
-    padding-top: 24px;
+    padding-top: 20px;
     margin-top: 4px;
   }
   .cta-footer a { color: var(--green); text-decoration: none; font-weight: 600; }
@@ -304,13 +452,15 @@
   .btn-restart:hover { background: var(--green); color: #fff; }
 
   @media (max-width: 480px) {
-    .intro-body, .result-body { padding: 28px 20px 32px; }
-    .q-header { padding: 16px 20px 14px; }
-    .q-body { padding: 22px 20px 8px; }
+    .intro-body, .result-body, .prescreen-body { padding: 24px 18px 28px; }
+    .q-header { padding: 16px 18px 14px; }
+    .q-body { padding: 20px 18px 8px; }
     .q-text { font-size: 1rem; }
-    .options-list { padding-bottom: 22px; gap: 8px; }
+    .options-list { padding-bottom: 20px; gap: 8px; }
     .option-btn { font-size: 0.95rem; padding: 13px 14px; }
     .level-badge-big { font-size: 1.3rem; padding: 12px 28px; }
+    .can-do-item { flex-wrap: wrap; gap: 10px; }
+    .can-do-buttons { width: 100%; justify-content: flex-end; }
   }
 </style>
 </head>
@@ -333,26 +483,37 @@
 <main>
   <div class="card">
 
-    <!-- Intro Screen -->
+    <!-- ── INTRO SCREEN ── -->
     <div class="screen active" id="screenIntro">
       <div class="intro-body">
         <h1>English Placement Test</h1>
-        <p>Welcome to Somerset Language Centre, Valencia. This short test will help us find the right course level for you.</p>
+        <p>Welcome to Somerset Language Centre, Valencia. This short test helps us find the right course level for you — so you feel challenged, not lost.</p>
         <ul>
-          <li>20 adaptive questions — the test adjusts to your level</li>
-          <li>No right or wrong way to do it — just answer honestly</li>
-          <li>Takes around 5–8 minutes to complete</li>
-          <li>No login or internet required after this page loads</li>
+          <li>Quick self-check, then up to 40 adaptive questions</li>
+          <li>The test adjusts to your level as you go</li>
+          <li>Takes around 8–12 minutes to complete</li>
+          <li>No login or sign-up needed</li>
+          <li>Select an answer — it moves forward automatically</li>
         </ul>
-        <p>Select one answer per question. There's no submit button — choosing an answer moves you forward automatically.</p>
-        <button class="btn-start" onclick="startTest()">Start the test →</button>
+        <p>Be honest — there are no tricks here. The more accurately you answer, the better we can place you.</p>
+        <button class="btn-primary" onclick="showPrescreen()">Start →</button>
       </div>
     </div>
 
-    <!-- Question Screen -->
+    <!-- ── PRE-SCREEN ── -->
+    <div class="screen" id="screenPrescreen">
+      <div class="prescreen-body">
+        <h2>Before we start — quick self-check</h2>
+        <p class="subtitle">Tap YES or NO for each statement. Be honest — there are no wrong answers. This helps us start the test at the right level for you.</p>
+        <div class="can-do-list" id="canDoList"></div>
+        <button class="btn-primary" id="btnStartTest" onclick="startTest()" disabled>Start test →</button>
+      </div>
+    </div>
+
+    <!-- ── QUESTION SCREEN ── -->
     <div class="screen" id="screenQuestion">
       <div class="q-header">
-        <span class="q-counter" id="qCounter">Question 1 of 20</span>
+        <span class="q-counter" id="qCounter">Question 1 of 40</span>
         <span class="q-level-badge" id="qLevelBadge">B1</span>
       </div>
       <div class="q-body" id="qBody">
@@ -361,17 +522,25 @@
       </div>
     </div>
 
-    <!-- Result Screen -->
+    <!-- ── RESULT SCREEN ── -->
     <div class="screen" id="screenResult">
       <div class="result-body">
         <p class="result-heading">Your English Level</p>
         <div class="level-badge-big" id="resultBadge"></div>
+        <p class="level-cefr-name" id="resultCefrName"></p>
         <div class="level-description" id="resultDescription"></div>
         <p class="score-line" id="resultScore"></p>
+        <div class="borderline-panel" id="borderlinePanel"></div>
+        <div class="writing-panel">
+          <h3>One more step — 2 minutes of writing</h3>
+          <p>To help us place you perfectly, write 2–3 sentences in English answering this question:</p>
+          <div class="writing-prompt" id="writingPrompt"></div>
+          <p class="writing-email">Copy your answer into an email to <a href="mailto:info@somersetlc.com">info@somersetlc.com</a> with the subject line: <strong>Placement – [Your Name]</strong></p>
+        </div>
         <div class="cta-footer">
           Interested in joining Somerset? Email us at <a href="mailto:info@somersetlc.com">info@somersetlc.com</a> or visit us in Valencia.
+          <button class="btn-restart" onclick="restartTest()">Restart test</button>
         </div>
-        <button class="btn-restart" onclick="restartTest()">Restart test</button>
       </div>
     </div>
 
@@ -379,138 +548,588 @@
 </main>
 
 <script>
-// ─── QUESTION BANK ──────────────────────────────────────────────────────────
-const ALL_QUESTIONS = [
-
-  // A1 (7 questions)
-  { id:1,  level:'A1', question:'I ___ a student at this school.', options:['am','is','are','be'], correct:0 },
-  { id:2,  level:'A1', question:'She has ___ brothers and one sister.', options:['two','twos','a two','second'], correct:0 },
-  { id:3,  level:'A1', question:'___ name is Carlos. He is from Madrid.', options:['His','Her','Its','Our'], correct:0 },
-  { id:4,  level:'A1', question:'What time ___ it?', options:['are','is','am','be'], correct:1 },
-  { id:5,  level:'A1', question:'I like coffee but I don\'t like ___.', options:['tea','a tea','the teas','teas'], correct:0 },
-  { id:6,  level:'A1', question:'There ___ twelve months in a year.', options:['is','are','am','have'], correct:1 },
-  { id:7,  level:'A1', question:'This is my bag. ___ is red.', options:['It','He','She','They'], correct:0 },
-
-  // A2 (7 questions)
-  { id:8,  level:'A2', question:'She ___ to work by bus every day.', options:['go','goes','going','gone'], correct:1 },
-  { id:9,  level:'A2', question:'I ___ television when the phone rang.', options:['watched','watch','was watching','am watching'], correct:2 },
-  { id:10, level:'A2', question:'They ___ in Barcelona for five years now.', options:['live','lived','are living','have lived'], correct:3 },
-  { id:11, level:'A2', question:'Can you help me? I can\'t find ___ keys.', options:['my','mine','me','myself'], correct:0 },
-  { id:12, level:'A2', question:'The opposite of "cheap" is ___.', options:['small','expensive','poor','ugly'], correct:1 },
-  { id:13, level:'A2', question:'We ___ go to the beach tomorrow if it\'s sunny.', options:['might','must','can\'t','should'], correct:0 },
-  { id:14, level:'A2', question:'There isn\'t ___ sugar left in the jar.', options:['any','some','a','many'], correct:0 },
-
-  // B1 (7 questions)
-  { id:15, level:'B1', question:'If it rains tomorrow, we ___ the match.', options:['cancel','will cancel','cancelled','would cancel'], correct:1 },
-  { id:16, level:'B1', question:'She said she ___ come to the party later.', options:['will','would','can','must'], correct:1 },
-  { id:17, level:'B1', question:'I\'ve been learning Spanish ___ three years.', options:['since','for','during','while'], correct:1 },
-  { id:18, level:'B1', question:'The museum ___ on Mondays, so we can\'t go today.', options:['closes','is closed','has closed','had closed'], correct:1 },
-  { id:19, level:'B1', question:'He was ___ tired that he fell asleep on the train.', options:['very','so','too','such'], correct:1 },
-  { id:20, level:'B1', question:'Which word means "to make something bigger"?', options:['reduce','expand','narrow','shorten'], correct:1 },
-  { id:21, level:'B1', question:'They ___ in the same office until the company moved to a new building.', options:['work','are working','have worked','had been working'], correct:3 },
-
-  // B2 (7 questions)
-  { id:22, level:'B2', question:'The report ___ by the time the director arrived.', options:['had been completed','has been completed','was completing','completed'], correct:0 },
-  { id:23, level:'B2', question:'If I ___ you, I would think twice before accepting that offer.', options:['am','was','were','had been'], correct:2 },
-  { id:24, level:'B2', question:'The new law is ___ to reduce carbon emissions significantly.', options:['intended','intention','intending','intends'], correct:0 },
-  { id:25, level:'B2', question:'She barely ___ the last train, arriving on the platform with seconds to spare.', options:['caught','catches','had caught','was catching'], correct:0 },
-  { id:26, level:'B2', question:'The CEO\'s statement was deliberately ___, leaving investors uncertain about the company\'s plans.', options:['vague','precise','honest','detailed'], correct:0 },
-  { id:27, level:'B2', question:'___ having studied for weeks, he still found the exam extremely difficult.', options:['Despite','Although','Even','However'], correct:0 },
-  { id:28, level:'B2', question:'The project was put on hold ___ the lack of funding.', options:['because of','although','however','so that'], correct:0 },
-
-  // C1 (7 questions)
-  { id:29, level:'C1', question:'The committee\'s decision was met with considerable ___.', options:['reluctance','hesitance','refusal','negation'], correct:0 },
-  { id:30, level:'C1', question:'The findings of the study are ___ with previous research in this field.', options:['consistent','consisting','consisted','consistency'], correct:0 },
-  { id:31, level:'C1', question:'Not only ___ the budget, but the project was also completed ahead of schedule.', options:['they exceeded','did they exceed','they did exceed','exceeded they'], correct:1 },
-  { id:32, level:'C1', question:'She was ___ by the sheer scale of the operation — nothing had prepared her for it.', options:['taken aback','taken over','taken apart','taken in'], correct:0 },
-  { id:33, level:'C1', question:'The government\'s policy on immigration has come under ___ scrutiny in recent months.', options:['increasing','increase','increasingly','increased'], correct:3 },
-  { id:34, level:'C1', question:'Which word best describes a person who tends to avoid social situations?', options:['introverted','oblivious','eccentric','pedantic'], correct:0 },
-  { id:35, level:'C1', question:'The proposal was rejected on the grounds that it ___ existing safety regulations.', options:['contravened','contravened to','contrary','contravening'], correct:0 },
+// ═══════════════════════════════════════════════════════════════════
+// PRE-SCREEN CAN-DO STATEMENTS
+// ═══════════════════════════════════════════════════════════════════
+const CAN_DO = [
+  { level: 'A1', text: 'I can introduce myself, say where I\'m from, and count to 100 in English.' },
+  { level: 'A2', text: 'I can describe my daily routine, talk about my job, and understand simple signs and menus.' },
+  { level: 'B1', text: 'I can discuss current events, give my opinion on familiar topics, and understand most TV programmes.' },
+  { level: 'B2', text: 'I can hold a detailed conversation on almost any topic, understand fast speech, and write clearly.' },
+  { level: 'C1', text: 'I can use English fluently and precisely in complex professional or academic situations.' },
 ];
 
-// ─── LEVEL CONFIG ────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// QUESTION BANK — 40 questions + 3 reading passages
+// ═══════════════════════════════════════════════════════════════════
+const ALL_QUESTIONS = [
+
+  // ── A1 (8 questions) ──────────────────────────────────────────
+  {
+    id: 1, level: 'A1', type: 'grammar',
+    question: 'Look at this sentence: "My name is Lucia. ___ am from Valencia." Which word completes it?',
+    options: ['I', 'She', 'He', 'You'],
+    correct: 0
+  },
+  {
+    id: 2, level: 'A1', type: 'grammar',
+    question: 'Carlos says: "I have ___ brothers." He shows two fingers. Which word did he use?',
+    options: ['second', 'two', 'twos', 'a two'],
+    correct: 1
+  },
+  {
+    id: 3, level: 'A1', type: 'vocabulary',
+    question: 'You go to a café in Valencia. You want a hot drink made from beans. You ask for a ___.',
+    options: ['water', 'coffee', 'juice', 'milk'],
+    correct: 1
+  },
+  {
+    id: 4, level: 'A1', type: 'grammar',
+    question: 'Maria points to a bag and says: "___ is my bag. ___ is red." Which word goes in both blanks?',
+    options: ['He', 'She', 'It', 'They'],
+    correct: 2
+  },
+  {
+    id: 5, level: 'A1', type: 'vocabulary',
+    question: 'Someone asks: "How old are you?" You are 28. What do you say?',
+    options: ['I have 28 years.', 'I am 28 years old.', 'My age has 28.', 'I am 28 years.'],
+    correct: 1
+  },
+  {
+    id: 6, level: 'A1', type: 'grammar',
+    question: 'There ___ twelve months in a year.',
+    options: ['am', 'is', 'are', 'have'],
+    correct: 2
+  },
+  {
+    id: 7, level: 'A1', type: 'vocabulary',
+    question: 'Your teacher says: "Open your ___." She holds up a book. What word did she say?',
+    options: ['bag', 'pen', 'book', 'chair'],
+    correct: 2
+  },
+  {
+    id: 8, level: 'A1', type: 'grammar',
+    question: 'A child is asked: "What colour is the sky?" She says: "The sky ___ blue."',
+    options: ['have', 'are', 'am', 'is'],
+    correct: 3
+  },
+
+  // ── A2 (8 questions) ──────────────────────────────────────────
+  {
+    id: 9, level: 'A2', type: 'grammar',
+    question: 'Ana takes the bus to work every morning. Which sentence describes her habit?',
+    options: [
+      'Ana goes to work by bus every day.',
+      'Ana is going to work by bus every day.',
+      'Ana go to work by bus every day.',
+      'Ana went to work by bus every day.'
+    ],
+    correct: 0
+  },
+  {
+    id: 10, level: 'A2', type: 'grammar',
+    question: 'Pedro says: "Last night I ___ TV when my phone rang." What is the missing word or words?',
+    options: ['watched', 'watch', 'was watching', 'am watching'],
+    correct: 2
+  },
+  {
+    id: 11, level: 'A2', type: 'vocabulary',
+    question: 'You are at a shop in Valencia. You want to know the price of a jacket. You ask: "How ___ is this jacket?"',
+    options: ['many', 'much', 'big', 'long'],
+    correct: 1
+  },
+  {
+    id: 12, level: 'A2', type: 'grammar',
+    question: 'Sofia says: "We ___ go to the beach tomorrow if it\'s sunny." She\'s not sure — it\'s possible. Which word fits?',
+    options: ['must', 'can\'t', 'might', 'need'],
+    correct: 2
+  },
+  {
+    id: 13, level: 'A2', type: 'vocabulary',
+    question: 'In a restaurant, the waiter asks: "Would you like a ___?" You want food, not a drink. What do you ask for?',
+    options: ['menu', 'glass', 'receipt', 'napkin'],
+    correct: 0
+  },
+  {
+    id: 14, level: 'A2', type: 'grammar',
+    question: 'Juan looked in the fridge and said: "There isn\'t ___ milk left." Which word completes the sentence correctly?',
+    options: ['some', 'many', 'any', 'a'],
+    correct: 2
+  },
+  {
+    id: 15, level: 'A2', type: 'vocabulary',
+    question: 'Your friend says: "I\'m really ___ — I didn\'t sleep well." She means she has no energy. What word did she use?',
+    options: ['hungry', 'angry', 'tired', 'bored'],
+    correct: 2
+  },
+  {
+    id: 16, level: 'A2', type: 'grammar',
+    question: 'Marta tells her neighbour: "My family ___ in Valencia for ten years now." The family arrived ten years ago and still live there.',
+    options: ['live', 'lived', 'are living', 'have lived'],
+    correct: 3
+  },
+
+  // ── B1 (8 questions) ──────────────────────────────────────────
+  {
+    id: 17, level: 'B1', type: 'grammar',
+    question: 'Maria told her friend: "I\'ve been waiting here for an hour." What does this tell us?',
+    options: [
+      'She arrived an hour ago and is still waiting.',
+      'She waited for an hour and then left.',
+      'She will wait for one more hour.',
+      'She waited here yesterday for an hour.'
+    ],
+    correct: 0
+  },
+  {
+    id: 18, level: 'B1', type: 'grammar',
+    question: 'David said: "If it rains tomorrow, we ___ the match." He\'s talking about a real possibility.',
+    options: ['cancel', 'will cancel', 'cancelled', 'would cancel'],
+    correct: 1
+  },
+  {
+    id: 19, level: 'B1', type: 'vocabulary',
+    question: 'The article said the new shopping centre will ___ 500 jobs in the city. What does this mean?',
+    options: [
+      'The centre will lose 500 jobs.',
+      'The centre will create 500 new positions for workers.',
+      'The centre will reduce the number of workers.',
+      'The centre will move 500 workers to a different location.'
+    ],
+    correct: 1
+  },
+  {
+    id: 20, level: 'B1', type: 'grammar',
+    question: 'The museum ___ on Mondays, so we decided to visit on Tuesday instead. Which option makes most sense?',
+    options: ['closes', 'is closed', 'had closed', 'was closing'],
+    correct: 1
+  },
+  {
+    id: 21, level: 'B1', type: 'vocabulary',
+    question: 'The politician promised to ___ action on climate change. She means she will take real steps to deal with the problem.',
+    options: ['take', 'make', 'do', 'bring'],
+    correct: 0
+  },
+  {
+    id: 22, level: 'B1', type: 'grammar',
+    question: 'Lucia told her colleague she had a meeting. She said: "I told him I ___ come later." What did she say?',
+    options: ['will', 'would', 'can', 'am going to'],
+    correct: 1
+  },
+  {
+    id: 23, level: 'B1', type: 'vocabulary',
+    question: 'He was ___ tired that he fell asleep on the metro before reaching his stop. Which word fits?',
+    options: ['very', 'such', 'so', 'too'],
+    correct: 2
+  },
+  {
+    id: 24, level: 'B1', type: 'grammar',
+    question: 'The team ___ in the same building until the company moved to a new office last year.',
+    options: ['work', 'are working', 'have worked', 'had been working'],
+    correct: 3
+  },
+
+  // ── B1 READING PASSAGE (question 25 — selected at ~Q15 if level = B1) ──
+  {
+    id: 25, level: 'B1', type: 'reading',
+    passage: 'Last month, the city of Valencia announced a new initiative to encourage cycling. The plan includes 15 kilometres of new cycle lanes in the city centre, reduced parking for cars near the old town, and a free bike-sharing scheme for residents. The mayor said the goal is to reduce traffic by 20% over the next three years. Some shop owners in El Carmen are worried the changes will make it harder for customers to reach their businesses.',
+    question: 'Why are some shop owners in El Carmen worried about the new plan?',
+    options: [
+      'They think fewer people will be able to reach their shops by car.',
+      'They believe the new cycle lanes will be too expensive to build.',
+      'They are concerned that cycling will damage the streets.',
+      'They want more parking spaces for cyclists near the old town.'
+    ],
+    correct: 0
+  },
+
+  // ── B2 (8 questions) ──────────────────────────────────────────
+  {
+    id: 26, level: 'B2', type: 'grammar',
+    question: 'The director arrived at 9am. Read this sentence: "By the time the director arrived, the report ___." Which option fits the meaning — the report was finished before she arrived?',
+    options: [
+      'had been completed',
+      'has been completed',
+      'was completing',
+      'completed'
+    ],
+    correct: 0
+  },
+  {
+    id: 27, level: 'B2', type: 'vocabulary',
+    question: 'The minister\'s speech was met with considerable ___ from opposition parties, who called it "misleading and inadequate".',
+    options: ['reluctance', 'resistance', 'refusal', 'rejection'],
+    correct: 1
+  },
+  {
+    id: 28, level: 'B2', type: 'grammar',
+    question: 'A colleague says: "If I ___ you, I would think twice before accepting that offer — the contract terms aren\'t clear." What fits?',
+    options: ['am', 'was', 'were', 'had been'],
+    correct: 2
+  },
+  {
+    id: 29, level: 'B2', type: 'vocabulary',
+    question: 'The CEO\'s announcement was deliberately ___. She gave no specific numbers or dates, leaving investors uncertain about what would happen next.',
+    options: ['vague', 'precise', 'frank', 'detailed'],
+    correct: 0
+  },
+  {
+    id: 30, level: 'B2', type: 'grammar',
+    question: '___ having prepared for months, the team still found the final presentation extremely challenging. Which word fits?',
+    options: ['Despite', 'Although', 'Even', 'However'],
+    correct: 0
+  },
+  {
+    id: 31, level: 'B2', type: 'vocabulary',
+    question: 'The new regulations are ___ to reduce food waste in supermarkets by requiring them to donate unsold produce. What does this sentence tell us about the regulations?',
+    options: [
+      'The regulations are designed with the purpose of reducing waste.',
+      'The regulations have already successfully reduced waste.',
+      'The regulations were rejected because of concerns about waste.',
+      'The regulations were created without any clear intention.'
+    ],
+    correct: 0
+  },
+  {
+    id: 32, level: 'B2', type: 'grammar',
+    question: 'The project was put on hold ___ the unexpected withdrawal of funding from the main sponsor.',
+    options: ['because of', 'although', 'however', 'so that'],
+    correct: 0
+  },
+  {
+    id: 33, level: 'B2', type: 'vocabulary',
+    question: 'She barely ___ the last train, running onto the platform just as the doors were closing.',
+    options: ['missed', 'caught', 'reached', 'found'],
+    correct: 1
+  },
+
+  // ── B2 READING PASSAGE (question 34 — selected at ~Q30 if level = B2) ──
+  {
+    id: 34, level: 'B2', type: 'reading',
+    passage: 'A growing body of research suggests that remote working has had a more complex effect on productivity than initially assumed. Early studies during the pandemic pointed to gains in output for individual tasks, but more recent analysis indicates that collaborative creativity — the kind that emerges from informal conversation and shared physical space — has declined significantly in distributed teams. Companies that rely on innovation as a competitive advantage are now reconsidering hybrid models not for cost reasons, but for creative ones.',
+    question: 'According to the passage, why are some companies reconsidering remote working policies?',
+    options: [
+      'Individual workers are less productive when working from home.',
+      'The financial costs of remote working have proved too high.',
+      'Informal collaboration that drives innovation is harder to achieve remotely.',
+      'Employees prefer working in an office for social reasons.'
+    ],
+    correct: 2
+  },
+
+  // ── C1 (8 questions) ──────────────────────────────────────────
+  {
+    id: 35, level: 'C1', type: 'grammar',
+    question: 'Not only ___ the budget, but the project was also completed three weeks ahead of schedule. Which option is grammatically correct and natural?',
+    options: [
+      'they exceeded',
+      'did they exceed',
+      'they did exceed',
+      'exceeded they'
+    ],
+    correct: 1
+  },
+  {
+    id: 36, level: 'C1', type: 'vocabulary',
+    question: 'The findings of the new study are entirely ___ with previous research in this field — all the data points in the same direction.',
+    options: ['consistent', 'consisting', 'consisted', 'consistency'],
+    correct: 0
+  },
+  {
+    id: 37, level: 'C1', type: 'grammar',
+    question: 'She was completely ___ by the scale of the project. Nothing in her previous experience had prepared her for it.',
+    options: ['taken aback', 'taken over', 'taken apart', 'taken in'],
+    correct: 0
+  },
+  {
+    id: 38, level: 'C1', type: 'vocabulary',
+    question: 'The proposal was rejected on the grounds that it ___ existing health and safety legislation that had been in force since 2018.',
+    options: ['contravened', 'contradicted', 'contrasted', 'converged'],
+    correct: 0
+  },
+  {
+    id: 39, level: 'C1', type: 'vocabulary',
+    question: 'The government\'s decision to raise interest rates has come under ___ scrutiny in recent months, with economists questioning the timing.',
+    options: ['increasing', 'increase', 'increasingly', 'increased'],
+    correct: 3
+  },
+  {
+    id: 40, level: 'C1', type: 'grammar',
+    question: 'Read this sentence: "Had the committee reviewed the data more carefully, the error ___ avoided." Which option completes it correctly?',
+    options: [
+      'would have been',
+      'will have been',
+      'would be',
+      'had been'
+    ],
+    correct: 0
+  },
+  {
+    id: 41, level: 'C1', type: 'vocabulary',
+    question: 'The author\'s argument is subtle but ultimately ___ — once you follow the logic, the conclusion seems almost inevitable.',
+    options: ['compelling', 'compelled', 'compellingly', 'compulsion'],
+    correct: 0
+  },
+  {
+    id: 42, level: 'C1', type: 'vocabulary',
+    question: 'Which sentence uses "mitigate" correctly?',
+    options: [
+      'The new policy will mitigate the risks associated with the investment.',
+      'She tried to mitigate her opinion on the controversial issue.',
+      'The government decided to mitigate the election results.',
+      'He mitigated a strong argument in favour of the proposal.'
+    ],
+    correct: 0
+  },
+
+  // ── C1 READING PASSAGE (question 43 — selected at ~Q30 if level = C1) ──
+  {
+    id: 43, level: 'C1', type: 'reading',
+    passage: 'The notion that artificial intelligence constitutes an existential threat is often framed in terms of superintelligent systems exceeding human cognitive capacity. This framing, while dramatically compelling, obscures a more proximate concern: the systematic amplification of existing institutional biases through the deployment of opaque algorithmic decision-making in high-stakes domains. When AI systems trained on historically skewed datasets determine access to credit, employment, or housing, the harm is not speculative — it is measurable, differential, and structurally entrenched.',
+    question: 'What does the author argue is the more immediate concern with AI, compared with the idea of superintelligence?',
+    options: [
+      'That AI systems are becoming more intelligent than humans in all domains.',
+      'That dramatic narratives about AI distract from genuine but less visible safety concerns.',
+      'That AI is being used to make biased decisions in important areas of life, reinforcing existing inequalities.',
+      'That the datasets used to train AI systems are too small to produce reliable results.'
+    ],
+    correct: 2
+  },
+];
+
+// ═══════════════════════════════════════════════════════════════════
+// LEVEL CONFIG
+// ═══════════════════════════════════════════════════════════════════
 const LEVELS = ['A1','A2','B1','B2','C1'];
-const LEVEL_NAMES = {
-  A1: 'A1 — Beginner',
-  A2: 'A2 — Elementary',
-  B1: 'B1 — Intermediate',
-  B2: 'B2 — Upper-Intermediate',
-  C1: 'C1 — Advanced',
+
+const LEVEL_CEFR = {
+  A1: 'Beginner',
+  A2: 'Elementary',
+  B1: 'Intermediate',
+  B2: 'Upper-Intermediate',
+  C1: 'Advanced',
 };
+
 const LEVEL_DESCRIPTIONS = {
-  A1: "You're just starting out in English — perfect! Our Beginner course will give you a strong foundation.",
-  A2: "You know the basics and are building confidence. Our Elementary course will take you further.",
-  B1: "You can handle everyday English well. Our Intermediate course will sharpen your fluency.",
-  B2: "You have solid English and can tackle complex topics. Our Upper-Intermediate course will refine your skills.",
-  C1: "Your English is advanced and versatile. Our Advanced course will perfect your professional and academic English.",
+  A1: "You're at the beginning of your English journey — and that's an exciting place to be. Our Beginner course will build your confidence step by step.",
+  A2: "You know the basics and you're building momentum. Our Elementary course will expand your range and get you talking more freely.",
+  B1: "You can handle everyday English well and express yourself on familiar topics. Our Intermediate course will sharpen your fluency and push you further.",
+  B2: "You have solid English and can tackle complex topics with confidence. Our Upper-Intermediate course will refine your accuracy and range.",
+  C1: "Your English is advanced, versatile, and effective. Our Advanced course will perfect the precision and sophistication your level demands.",
 };
-const MAX_QUESTIONS = 20;
-const STREAK_STOP = 5;
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
+const WRITING_PROMPTS = {
+  A1: "What is your name? Where are you from? Do you have a job?",
+  A2: "What is your name? Where are you from? Do you have a job?",
+  B1: "Tell us about your last holiday or a trip you'd like to take.",
+  B2: "What do you find most challenging about English? And what do you enjoy most?",
+  C1: "What are you hoping to achieve with your English in the next year, and why does that matter to you?",
+};
+
+const MAX_QUESTIONS = 40;
+const STREAK_STOP = 6;
+
+// IDs of reading passages — managed separately
+const READING_IDS = { B1: 25, B2: 34, C1: 43 };
+
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════
 let state = {};
+let prescreenAnswers = {}; // { 0: true/false, 1: true/false, ... }
 
-function initState() {
+function initState(startLevel) {
   state = {
     answered: 0,
-    history: [],          // {level, correct}
+    correctCount: 0,
+    history: [],       // { level, correct }
+    levelHistory: [],  // string[] of levels answered
     usedIds: new Set(),
     currentQ: null,
-    currentLevel: 'B1',   // starting level
+    currentLevel: startLevel,
     levelStreak: 0,
     streakLevel: null,
     done: false,
     correctByLevel: { A1:0, A2:0, B1:0, B2:0, C1:0 },
     totalByLevel:   { A1:0, A2:0, B1:0, B2:0, C1:0 },
+    readingUsed: { B1: false, B2: false, C1: false },
+    borderline: false,
+    startLevel: startLevel,
   };
 }
 
-// ─── QUESTION SELECTION ───────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// PRE-SCREEN LOGIC
+// ═══════════════════════════════════════════════════════════════════
+function showPrescreen() {
+  prescreenAnswers = {};
+  renderCanDo();
+  showScreen('screenPrescreen');
+}
+
+function renderCanDo() {
+  const list = document.getElementById('canDoList');
+  list.innerHTML = '';
+  CAN_DO.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'can-do-item';
+    div.id = `canDoItem${i}`;
+    div.innerHTML = `
+      <div style="flex:1">
+        <span class="can-do-level">${item.level}</span>
+        <p class="can-do-text">${item.text}</p>
+      </div>
+      <div class="can-do-buttons">
+        <button class="yn-btn yes-btn" onclick="answerCanDo(${i}, true)" id="yes${i}">YES</button>
+        <button class="yn-btn no-btn"  onclick="answerCanDo(${i}, false)" id="no${i}">NO</button>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function answerCanDo(idx, answer) {
+  prescreenAnswers[idx] = answer;
+  const item = document.getElementById(`canDoItem${idx}`);
+  item.classList.remove('answered-yes','answered-no');
+  item.classList.add(answer ? 'answered-yes' : 'answered-no');
+
+  document.getElementById(`yes${idx}`).classList.remove('selected-yes','selected-no');
+  document.getElementById(`no${idx}`).classList.remove('selected-yes','selected-no');
+  if (answer) document.getElementById(`yes${idx}`).classList.add('selected-yes');
+  else document.getElementById(`no${idx}`).classList.add('selected-no');
+
+  // Enable start button when all 5 answered
+  const allAnswered = Object.keys(prescreenAnswers).length === CAN_DO.length;
+  document.getElementById('btnStartTest').disabled = !allAnswered;
+}
+
+function getStartLevel() {
+  // prescreenAnswers: { 0: bool (A1), 1: bool (A2), 2: bool (B1), 3: bool (B2), 4: bool (C1) }
+  const a = prescreenAnswers;
+  if (!a[0]) return 'A1';
+  if (a[0] && !a[1]) return 'A1';
+  if (a[0] && a[1] && !a[2]) return 'A2';
+  if (a[0] && a[1] && a[2] && !a[3]) return 'B1';
+  if (a[0] && a[1] && a[2] && a[3] && !a[4]) return 'B2';
+  return 'C1';
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// QUESTION SELECTION
+// ═══════════════════════════════════════════════════════════════════
 function pickQuestion(level) {
-  const pool = ALL_QUESTIONS.filter(q => q.level === level && !state.usedIds.has(q.id));
+  // Check if we should inject a reading passage
+  const readingQ = maybeInjectReading(level);
+  if (readingQ) return readingQ;
+
+  // Pick from non-reading pool at current level
+  const pool = ALL_QUESTIONS.filter(q =>
+    q.level === level &&
+    q.type !== 'reading' &&
+    !state.usedIds.has(q.id)
+  );
   if (pool.length === 0) {
-    // All questions at this level exhausted — pick any unused or reuse
-    const any = ALL_QUESTIONS.filter(q => q.level === level);
-    return any[Math.floor(Math.random() * any.length)];
+    // Exhausted — pick nearest level
+    for (const lvl of adjacentLevels(level)) {
+      const fallback = ALL_QUESTIONS.filter(q =>
+        q.level === lvl && q.type !== 'reading' && !state.usedIds.has(q.id)
+      );
+      if (fallback.length > 0) return fallback[Math.floor(Math.random() * fallback.length)];
+    }
+    // Last resort — reuse
+    const all = ALL_QUESTIONS.filter(q => q.level === level && q.type !== 'reading');
+    return all[Math.floor(Math.random() * all.length)];
   }
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-// ─── ADAPTIVE LOGIC ───────────────────────────────────────────────────────────
+function maybeInjectReading(level) {
+  // Inject B1 passage near Q15, B2/C1 near Q30
+  const q = state.answered + 1;
+  if (q >= 14 && q <= 17) {
+    const passLevel = level === 'A1' || level === 'A2' ? 'B1' : level;
+    const id = READING_IDS[passLevel] || READING_IDS['B1'];
+    if (!state.readingUsed[passLevel] && !state.usedIds.has(id)) {
+      const pq = ALL_QUESTIONS.find(x => x.id === id);
+      if (pq) { state.readingUsed[passLevel] = true; return pq; }
+    }
+  }
+  if (q >= 28 && q <= 32) {
+    const passLevel = level === 'A1' || level === 'A2' ? 'B2' : level;
+    const lvl = ['B2','C1'].includes(passLevel) ? passLevel : 'B2';
+    const id = READING_IDS[lvl];
+    if (!state.readingUsed[lvl] && !state.usedIds.has(id)) {
+      const pq = ALL_QUESTIONS.find(x => x.id === id);
+      if (pq) { state.readingUsed[lvl] = true; return pq; }
+    }
+  }
+  return null;
+}
+
+function adjacentLevels(level) {
+  const i = LEVELS.indexOf(level);
+  const result = [];
+  if (i > 0) result.push(LEVELS[i-1]);
+  if (i < LEVELS.length-1) result.push(LEVELS[i+1]);
+  return result;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ADAPTIVE LOGIC
+// ═══════════════════════════════════════════════════════════════════
 function nextLevel(wasCorrect) {
   const idx = LEVELS.indexOf(state.currentLevel);
-  if (wasCorrect) {
-    return idx < LEVELS.length - 1 ? LEVELS[idx + 1] : LEVELS[idx];
-  } else {
-    return idx > 0 ? LEVELS[idx - 1] : LEVELS[0];
-  }
+  if (wasCorrect) return idx < LEVELS.length-1 ? LEVELS[idx+1] : LEVELS[idx];
+  return idx > 0 ? LEVELS[idx-1] : LEVELS[0];
 }
 
 function checkStop() {
   if (state.answered >= MAX_QUESTIONS) return true;
-  // Streak check
-  if (state.history.length >= STREAK_STOP) {
-    const last5 = state.history.slice(-STREAK_STOP);
-    if (last5.every(h => h.level === last5[0].level)) return true;
+  // Stop if 6 consecutive at same level
+  if (state.levelHistory.length >= STREAK_STOP) {
+    const last = state.levelHistory.slice(-STREAK_STOP);
+    if (last.every(l => l === last[0])) return true;
   }
   return false;
 }
 
-// ─── RESULT CALCULATION ───────────────────────────────────────────────────────
+function checkBorderline() {
+  if (state.levelHistory.length < 8) return false;
+  const last8 = state.levelHistory.slice(-8);
+  let changes = 0;
+  for (let i = 1; i < last8.length; i++) {
+    if (last8[i] !== last8[i-1]) changes++;
+  }
+  return changes > 3;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RESULT CALCULATION
+// ═══════════════════════════════════════════════════════════════════
 function calculateLevel() {
-  // Highest level with >= 60% correct (min 1 attempt)
-  for (let i = LEVELS.length - 1; i >= 0; i--) {
+  // Weighted: highest level with ≥60% correct AND at least 2 attempts
+  for (let i = LEVELS.length-1; i >= 0; i--) {
     const lv = LEVELS[i];
     const total = state.totalByLevel[lv];
-    if (total === 0) continue;
+    if (total < 2) continue;
     const pct = state.correctByLevel[lv] / total;
     if (pct >= 0.6) return lv;
   }
-  // fallback: all wrong → A1
-  return 'A1';
+  // Fallback: most questions at level
+  let maxLv = 'A1', maxCount = 0;
+  LEVELS.forEach(lv => {
+    if (state.totalByLevel[lv] > maxCount) {
+      maxCount = state.totalByLevel[lv];
+      maxLv = lv;
+    }
+  });
+  return maxLv;
 }
 
-// ─── RENDERING ────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// RENDERING
+// ═══════════════════════════════════════════════════════════════════
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -527,41 +1146,48 @@ function renderQuestion() {
   const q = state.currentQ;
   document.getElementById('qCounter').textContent = `Question ${state.answered + 1} of ${MAX_QUESTIONS}`;
   document.getElementById('qLevelBadge').textContent = q.level;
-  document.getElementById('qText').textContent = q.question;
 
-  const list = document.getElementById('optionsList');
-  list.innerHTML = '';
+  const typeLabels = { grammar: 'Grammar', vocabulary: 'Vocabulary', reading: 'Reading' };
+
+  let html = '';
+  if (q.passage) {
+    html += `<div class="passage-box">${q.passage}</div>`;
+  }
+  html += `<div class="q-type-label">${typeLabels[q.type] || ''}</div>`;
+  html += `<p class="q-text" id="qText">${q.question}</p>`;
+  html += `<ul class="options-list" id="optionsList">`;
   q.options.forEach((opt, i) => {
-    const li = document.createElement('li');
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span><span class="opt-text">${opt}</span>`;
-    btn.onclick = () => handleAnswer(i, btn, list);
-    li.appendChild(btn);
-    list.appendChild(li);
+    html += `<li><button class="option-btn" onclick="handleAnswer(${i}, this)" data-idx="${i}">
+      <span class="opt-letter">${LETTERS[i]}</span>
+      <span class="opt-text">${opt}</span>
+    </button></li>`;
   });
+  html += `</ul>`;
+
+  document.getElementById('qBody').innerHTML = html;
 }
 
-function handleAnswer(selectedIdx, clickedBtn, list) {
-  // Disable all buttons
+function handleAnswer(selectedIdx, clickedBtn) {
+  const list = document.getElementById('optionsList');
   const allBtns = list.querySelectorAll('.option-btn');
   allBtns.forEach(b => b.disabled = true);
 
   const q = state.currentQ;
   const correct = selectedIdx === q.correct;
 
-  // Style selected
   clickedBtn.classList.add(correct ? 'correct' : 'wrong');
-  // If wrong, reveal correct
   if (!correct) {
     allBtns[q.correct].classList.add('reveal-correct');
   }
 
   // Update state
   state.usedIds.add(q.id);
-  state.totalByLevel[q.level]++;
-  if (correct) state.correctByLevel[q.level]++;
+  if (q.type !== 'reading') {
+    state.totalByLevel[q.level]++;
+    if (correct) { state.correctByLevel[q.level]++; state.correctCount++; }
+  }
   state.history.push({ level: q.level, correct });
+  state.levelHistory.push(q.level);
   state.answered++;
 
   // Streak tracking
@@ -574,16 +1200,15 @@ function handleAnswer(selectedIdx, clickedBtn, list) {
 
   updateProgress();
 
-  // Advance after 1.2s
   setTimeout(() => {
     if (checkStop()) {
+      state.borderline = checkBorderline();
       showResult();
     } else {
       const nl = nextLevel(correct);
       state.currentLevel = nl;
       state.currentQ = pickQuestion(nl);
 
-      // Fade out, then render next
       const body = document.getElementById('qBody');
       body.classList.add('fade-out');
       setTimeout(() => {
@@ -596,27 +1221,48 @@ function handleAnswer(selectedIdx, clickedBtn, list) {
 
 function showResult() {
   const level = calculateLevel();
-  const totalCorrect = Object.values(state.correctByLevel).reduce((a,b) => a+b, 0);
+  const totalAnswered = state.answered;
+  const totalCorrect = state.correctCount;
 
-  document.getElementById('resultBadge').textContent = LEVEL_NAMES[level];
+  document.getElementById('resultBadge').textContent = level;
+  document.getElementById('resultCefrName').textContent = LEVEL_CEFR[level];
   document.getElementById('resultDescription').textContent = LEVEL_DESCRIPTIONS[level];
   document.getElementById('resultScore').innerHTML =
-    `<strong>${totalCorrect}</strong> out of <strong>${state.answered}</strong> questions correct`;
+    `<strong>${totalAnswered}</strong> questions answered · <strong>${totalCorrect}</strong> correct`;
+
+  // Borderline panel
+  const bPanel = document.getElementById('borderlinePanel');
+  if (state.borderline) {
+    const lvIdx = LEVELS.indexOf(level);
+    const lowerLv = lvIdx > 0 ? LEVELS[lvIdx-1] : level;
+    const upperLv = lvIdx < LEVELS.length-1 ? LEVELS[lvIdx+1] : level;
+    bPanel.style.display = 'block';
+    bPanel.innerHTML = `🔍 <strong>Your result is on the border between ${lowerLv} and ${upperLv}.</strong> We recommend a short conversation with one of our teachers before confirming your class. This is completely normal — it just means you're at an interesting point in your learning.`;
+  } else {
+    bPanel.style.display = 'none';
+  }
+
+  // Writing prompt
+  document.getElementById('writingPrompt').textContent = `"${WRITING_PROMPTS[level]}"`;
 
   document.getElementById('progressBar').style.width = '100%';
   showScreen('screenResult');
 }
 
-// ─── ENTRY POINTS ─────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════
+// ENTRY POINTS
+// ═══════════════════════════════════════════════════════════════════
 function startTest() {
-  initState();
-  state.currentQ = pickQuestion('B1');
+  const startLevel = getStartLevel();
+  initState(startLevel);
+  state.currentQ = pickQuestion(startLevel);
   updateProgress();
   showScreen('screenQuestion');
   renderQuestion();
 }
 
 function restartTest() {
+  prescreenAnswers = {};
   document.getElementById('progressBar').style.width = '0%';
   showScreen('screenIntro');
 }
