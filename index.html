@@ -451,6 +451,92 @@
   }
   .btn-restart:hover { background: var(--green); color: #fff; }
 
+  /* ── Name / submission panel ── */
+  .submit-panel {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 24px 0;
+    margin: 4px 0 20px;
+    text-align: left;
+  }
+  .submit-panel .submit-intro {
+    font-size: 0.97rem;
+    color: #444;
+    margin-bottom: 16px;
+    line-height: 1.55;
+  }
+  .submit-input {
+    display: block;
+    width: 100%;
+    background: var(--panel);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Barlow', Arial, sans-serif;
+    font-size: 1rem;
+    padding: 14px 16px;
+    color: var(--dark);
+    margin-bottom: 10px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .submit-input:focus { border-color: var(--green); }
+  .btn-send {
+    display: block;
+    width: 100%;
+    background: #aaa;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Barlow', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 16px;
+    cursor: default;
+    letter-spacing: 0.3px;
+    transition: background 0.2s;
+    margin-top: 4px;
+  }
+  .btn-send.active {
+    background: var(--green);
+    cursor: pointer;
+  }
+  .btn-send.active:hover { background: #5a9926; }
+  .submit-success {
+    color: var(--green);
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    padding: 10px 0 4px;
+    display: none;
+  }
+  .submit-success .success-sub {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 4px;
+  }
+  .btn-clipboard {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: 'Barlow', Arial, sans-serif;
+    font-size: 0.88rem;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px 0 2px;
+  }
+  .btn-clipboard:hover { color: #333; }
+  .clipboard-confirm {
+    font-size: 0.82rem;
+    color: var(--green);
+    text-align: center;
+    min-height: 18px;
+    margin-top: 2px;
+  }
+
   @media (max-width: 480px) {
     .intro-body, .result-body, .prescreen-body { padding: 24px 18px 28px; }
     .q-header { padding: 16px 18px 14px; }
@@ -531,6 +617,21 @@
         <div class="level-description" id="resultDescription"></div>
         <p class="score-line" id="resultScore"></p>
         <div class="borderline-panel" id="borderlinePanel"></div>
+
+        <!-- ── SUBMIT PANEL ── -->
+        <div class="submit-panel" id="submitPanel">
+          <p class="submit-intro">Almost done — who are we talking to?</p>
+          <input class="submit-input" type="text" id="inputName" placeholder="Your full name" autocomplete="name" />
+          <input class="submit-input" type="email" id="inputEmail" placeholder="your@email.com — optional" autocomplete="email" />
+          <button class="btn-send" id="btnSend" onclick="sendResults()">Send my results →</button>
+          <div class="submit-success" id="submitSuccess">
+            ✓ Results sent to Somerset!
+            <div class="success-sub">We'll be in touch soon. — info@somersetlc.com</div>
+          </div>
+          <button class="btn-clipboard" id="btnClipboard" onclick="copyResults()">or copy results to clipboard</button>
+          <div class="clipboard-confirm" id="clipboardConfirm"></div>
+        </div>
+
         <div class="writing-panel">
           <h3>One more step — 2 minutes of writing</h3>
           <p>To help us place you perfectly, write 2–3 sentences in English answering this question:</p>
@@ -1247,6 +1348,7 @@ function showResult() {
 
   document.getElementById('progressBar').style.width = '100%';
   showScreen('screenResult');
+  setupNameInput();
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1265,6 +1367,121 @@ function restartTest() {
   prescreenAnswers = {};
   document.getElementById('progressBar').style.width = '0%';
   showScreen('screenIntro');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RESULT SUBMISSION
+// ═══════════════════════════════════════════════════════════════════
+function setupNameInput() {
+  var input = document.getElementById('inputName');
+  if (input) {
+    // Reset state
+    input.disabled = false;
+    input.value = '';
+    document.getElementById('inputEmail').disabled = false;
+    document.getElementById('inputEmail').value = '';
+    document.getElementById('btnSend').classList.remove('active');
+    document.getElementById('btnSend').textContent = 'Send my results →';
+    document.getElementById('btnSend').style.background = '';
+    document.getElementById('btnSend').style.cursor = '';
+    document.getElementById('btnSend').style.display = '';
+    document.getElementById('submitSuccess').style.display = 'none';
+    document.getElementById('clipboardConfirm').textContent = '';
+
+    input.addEventListener('input', function () {
+      var btn = document.getElementById('btnSend');
+      if (this.value.trim().length > 0) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+}
+
+function getSubmissionData() {
+  const level = calculateLevel();
+  const name = document.getElementById('inputName').value.trim();
+  const email = document.getElementById('inputEmail').value.trim() || 'not provided';
+  const totalAnswered = state.answered;
+  const totalCorrect = state.correctCount;
+
+  const prescreenSummary = CAN_DO.map((item, i) =>
+    `${item.level}: ${prescreenAnswers[i] ? 'YES' : 'NO'}`
+  ).join(', ');
+
+  const now = new Date();
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dateStr = `${now.getDate()} ${monthNames[now.getMonth()]} ${now.getFullYear()}`;
+
+  return {
+    name,
+    email,
+    level,
+    levelLabel: LEVEL_CEFR[level],
+    score: `${totalCorrect} correct out of ${totalAnswered} answered`,
+    borderline: state.borderline ? 'yes' : 'no',
+    prescreen: prescreenSummary,
+    date: dateStr,
+    _subject: `Placement Test Result — ${name} — ${level}`,
+  };
+}
+
+async function sendResults() {
+  const btn = document.getElementById('btnSend');
+  if (!btn.classList.contains('active')) return;
+
+  const data = getSubmissionData();
+
+  // Disable button during request
+  btn.classList.remove('active');
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch('https://formspree.io/f/xpwzgrdv', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok) {
+      // Success
+      btn.style.display = 'none';
+      const successEl = document.getElementById('submitSuccess');
+      successEl.style.display = 'block';
+      document.getElementById('inputName').disabled = true;
+      document.getElementById('inputEmail').disabled = true;
+    } else {
+      throw new Error('Formspree error');
+    }
+  } catch (e) {
+    // Fallback: mailto
+    const d = data;
+    const subject = encodeURIComponent(`Placement Test Result — ${d.name} — ${d.level}`);
+    const body = encodeURIComponent(
+      `Name: ${d.name}\nEmail: ${d.email}\nLevel: ${d.level} (${d.levelLabel})\nScore: ${d.score}\nBorderline: ${d.borderline}\nDate: ${d.date}`
+    );
+    window.open(`mailto:info@somersetlc.com?subject=${subject}&body=${body}`, '_blank');
+
+    btn.textContent = 'Please send the email that just opened — it has your results.';
+    btn.style.background = '#f0a500';
+    btn.style.cursor = 'default';
+  }
+}
+
+function copyResults() {
+  const data = getSubmissionData();
+  const text = `Somerset Placement Test Results\nName: ${data.name || '(not entered)'}\nLevel: ${data.level} — ${data.levelLabel}\nScore: ${data.score}\nDate: ${data.date}\n---\nSend to: info@somersetlc.com`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const confirm = document.getElementById('clipboardConfirm');
+    confirm.textContent = '✓ Copied to clipboard';
+    setTimeout(() => { confirm.textContent = ''; }, 3000);
+  }).catch(() => {
+    const confirm = document.getElementById('clipboardConfirm');
+    confirm.textContent = 'Could not copy — please copy manually.';
+  });
 }
 </script>
 </body>
